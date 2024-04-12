@@ -1,76 +1,57 @@
+
 /* 
   ftnSalutation is a conventional JS function
   it returns an array of strings where each
   element (or index) of the array consists
-  of the salutations to populate inputSelect
+  of the salutations to pupulate inputSelect
   found in index.html
 */
-function ftnSalutation() {
-  //  implement your statement(s) here
-  return new Array("Mr.", "Ms.", "Mrs.", "Dr.");
+function ftnSalutation(){
+  return new Array("Mr.", "Mrs.", "Ms.", "Dr.");
 }
 
 /* 
-  ftnGreeting written as an ARROW function
-  it uses the passed-in parameters to form
-  a greeting to be returned to the function that
-  calls it
+ftnSalutation written as an ARROW function
+it uses the passed-in parameters to form
+a greeting to be returned to the function that
+calls it
 */
 const ftnGreeting = (salutation, user) => {
-  //  implement your statement(s) here
-  const msg = "Hi, " + salutation + " " + user + " We recieved your submission.";
-  return msg;
+  var msg = "Hi, " + salutation + " " + user + "! We received your submssion.";
+  return msg; 
 }
 
-/*
-Complete the challenge statement below
-Create the function validateInputs below
-Hint: 
-- validateInputs accepts two arguments (choice, name)
-- name should include a default value name=""
-- validateInputs returns false if either choice or name is incorrectly filled
-- validateInputs returns true if both choice and name are correctly filled
-*/
+// Refactor the if conditions, use comparison operators to form a single if statement
+function validateInputs(choice, name = ""){
 
-// given solution by Martin
+//  if the choice is empty OR the name is empty, return to the caller prematurely
+if(choice == "" || name=="")
+  return;
 
-function validateInputs (choice, name="") {
-   return true;
-  
-     if(choice == "")
-     return;
-  
-     if(name == "")
-     return;
-  
-     return true;
+return true;
+
 }
 
-//if the choice is empty OR the name is empty, return to the caller prematurely
-// logical OR operation
-// if(choice == "" || name == "")
-// return;
+// Refactor the function to use a switch statement
+// None:    "Thank you. No preference selected."
+// Chicken: "The main course served is Chicken Cordon Bleu."
+// Beef:    "The main course served is Beef Wellington." 
+// Others:  "We will contact you separately to arrange."
+function ftnRadioMeal(meal){
 
-
-
-function ftnRadioMeal(meal) {
-  
-  
-  //using switch statement to provide the appropriate feedback to the user
-  switch (meal) { //key is the meal passed-in
-    case "None":
-      document.getElementById("displayPreference").textContent = "No preference selected.";
-      break;
-    case "Beef":
-      document.getElementById("displayPreference").textContent = "The main course is Beef Wellington.";
-      break;
+// using switch statement to provide the appropriate feedback to the user
+switch (meal) { // key is the meal-passed in
+  case "None":
+    document.getElementById("displayPreference").textContent = "Thank you. No preference selected.";
+    break;
+  case "Beef":
+    document.getElementById("displayPreference").textContent = "The main course served is Beef Wellington."; 
+    break;
     case "Chicken":
-      document.getElementById("displayPreference").textContent = "The next course is Chicken Corden Bleu.";
+      document.getElementById("displayPreference").textContent = "The main course served is Chicken Cordon Bleu.";
       break;
-  
-    default:
-      document.getElementById("displayPreference").textContent = "We will contact you seperately";
-      break;
-  }
-
+  default:
+    document.getElementById("displayPreference").textContent = "We will contact you separately to arrange."
+    break;
+}
 }
