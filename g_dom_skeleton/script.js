@@ -7,19 +7,21 @@ const pagetitle = document.getElementById("pageTitle");
 // Setting HTML markup contained within the element.
 
 // Implement Code here
-
+// Vulnerability (innerHTML): XSS (Cross-site Scripting)
+pagetitle.innerHTML = "<a href='https:www.google.com.sg'>Document Object Model</a>";
 
 // 2. element.innerText
 // Rendering text content of a node and its descendants.
 
 // Implement Code here
-
+pagetitle.innerHTML = "Document Object Model";
 
 // 3. element.style
 // Modifying the style of HTML elements
 
 // Implement Code here
-
+pagetitle.style,height = "2em";
+pagetitle.style.color = "#ff0000";
 
 // 4. getElementById
 // refer to the example above (line 4)
@@ -27,13 +29,16 @@ const pagetitle = document.getElementById("pageTitle");
 
 // 5. getElementsByTagName
 // Using getElementsByTagName method, search for elements that match a tag name
-
+const spans = document.getElementsByTagName("span");
 // Implement Code here
 
 // Using getElementsByTagName method, search for elements that match a tag's index
 
 // Implement Code here
+spans[0].innerText = "Element Updated.";
+spans[1].innerText = "Another Element Updated.";
 
+console.log(spans.length);
 
 // 6. createElement
 // Adding a new HTML element in JavaScript.
