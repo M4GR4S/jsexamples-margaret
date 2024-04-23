@@ -11,7 +11,7 @@ const _HEIGHTPROMPT = `Enter the no. of tiles for the height (min. ${_MIN} - max
 const _INVALID = `Please enter a valid number between ${_MIN} - max. ${_MAX}.\n`;
 
 // Set constants to inform player if they went OOB/Win/Lose or quit the game
-const _OUTOFBOUNDS = "Oh no!\nYou went out of bounds. Try again!";
+const _OUTOFBOUNDS = "Oh no!\nYou went out of bounds. Please try again!";
 const _WIN = "You found the hat!\nCongratulations!";
 const _LOSE = "You fell into a hole!\nGame over!";
 const _QUIT = "You have quit the game!\nGoodbye!";
@@ -121,9 +121,9 @@ class Field{
         switch (true) {
             // If pathCharacter goes out of bounds then show _OUTOFBOUNDS
             case this.positionY < 0 ||
-            this.positionY > this.field.length -1 ||
+            this.positionY > this.field.length - 1 ||
             this.positionX < 0 ||
-            this.positionX > this.field.length -1:
+            this.positionX > this.field.length - 1:
             console.log(_OUTOFBOUNDS);
             this.endGame(msg) = true;
             break;
@@ -149,7 +149,7 @@ class Field{
         this.playGame = false;
         console.log(msg);
         //Use a process code to exit the game
-        process.exit();
+        process.exit(0);
       }
 
     //1. Set the game width and height (Static Method)
