@@ -58,8 +58,10 @@ class Field{
     printMaze() {
         // Going through and console.log each element
         // TODO: concatenate the field generated into a string
-        // for (const iterator of object) {
-            
+        // for-of (const iterator of object) {
+           for (const element of this.field) {
+            console.log(element)
+           }
         // }
     }
 

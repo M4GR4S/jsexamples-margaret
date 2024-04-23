@@ -10,7 +10,147 @@ const _WIDTHPROMPT = `Enter the no. of tiles for the width (min. ${_MIN} - max. 
 const _HEIGHTPROMPT = `Enter the no. of tiles for the height (min. ${_MIN} - max. ${_MAX}): `;
 const _INVALID = `Please enter a valid number between ${_MIN} - max. ${_MAX}.\n`;
 
+// Set constants to inform player if they went OOB/Win/Lose or quit the game
+const _OUTOFBOUNDS = "Oh no!\nYou went out of bounds. Try again!";
+const _WIN = "You found the hat!\nCongratulations!";
+const _LOSE = "You fell into a hole!\nGame over!";
+const _QUIT = "You have quit the game!\nGoodbye!";
+const msg = "Thank you for playing!";
+
 class Field{
+    // 5. Constructor initialisation. Note: the field created for the game is a 2d-array
+    constructor(field = new Array([])){
+        this.playGame = false;                // set the game play to false
+        this.field = field;                   // set the field that was passed in
+        this.positionX = 0;                   // set player's initial position x: 0;
+        this.positionY = 0;                   // set player's initial position y: 0;
+        this.field[0][0] = pathCharacter;     // set the path of the Character's initial x and y position
+    }
+
+    //6. start the game
+    startGame() {
+        
+        this.playGame = true;
+        
+        // Print the instruction
+        this.printInstruction();
+        
+        while (this.playGame) {
+            
+            // Print Maze
+            // TODO: Print maze
+            this.printMaze();
+
+            // Prompt player to move
+            // TODO: Prompt the player to move
+            this.promptMove();
+
+            // Track the player's position and end the game if value returned is _WIN, _LOSE or _OUTOFBOUNDS
+            // TODO: track the player's position
+            this.trackPlayer();
+
+            // Show pathCharacter at current position
+            this.field[this.positionY][this.positionX] = pathCharacter;
+        }
+    }
+
+    // 7. Print the game instructions
+    printInstruction() {
+        console.log('To move your character, enter:\n> "w" to move up\n> "a" to move left\n> "s" to move down\n> "d" to move right\n>  "q" or CTRL + C to quit.\n')
+    }
+
+    //8. Print maze
+    printMaze() {
+        // Going through and console.log each element
+        // TODO: concatenate the field generated into a string
+        // for (const iterator of object) {
+        // }
+        for (const element of this.field){
+            console.log(element.join(""));
+        }
+    }
+
+    // 9. Prompt the player to make the next move
+    promptMove() {
+        var moveDirection = prompt("Which way? ");
+        moveDirection = moveDirection.toLowerCase();    // Convert player's input to lowercase before checking
+        
+        // TODO: Move base on input for moveDirection (inform the player if it is an invaid move or the game has ended via "q")
+        switch (moveDirection) {
+            // Moves the pathCharacter up by 1
+            case "w":
+              this.positionY -= 1;
+              break;
+      
+            // Moves the pathCharacter down by 1
+            case "s":
+              this.positionY += 1;
+              break;
+      
+            // Moves the pathCharacter left by 1
+            case "a":
+              this.positionX -= 1;
+              break;
+      
+            // Moves the pathCharacter right by 1
+            case "d":
+              this.positionX += 1;
+              break;
+      
+            // Turns playGame into false to quit the game upon userinput of q
+            case "q":
+              console.log(_QUIT);
+              this.playGame = false;
+              break;
+      
+            // Shows a message saying invalid direction if any keys are entered except for WASD
+            default:
+              console.log(
+                "You have entered an invalid option. \nPlease choose either W, A, S, D\n"
+              );
+              break;
+          }
+        }
+
+    //10. Check if player has gone off-bounds, fallen into a hole or found the hat
+    trackPlayer() {
+
+        let status = "";
+
+        // TODO: Set the condition to check if user has gone off-bounds, fallen into the hole or found the hat
+        switch (true) {
+            // If pathCharacter goes out of bounds then show _OUTOFBOUNDS
+            case this.positionY < 0 ||
+            this.positionY > this.field.length -1 ||
+            this.positionX < 0 ||
+            this.positionX > this.field.length -1:
+            console.log(_OUTOFBOUNDS);
+            this.endGame(msg) = true;
+            break;
+      
+            // If pathCharacter falls into a hole then show _LOSE
+            case this.field[this.positionY][this.positionX] === hole:
+              console.log(_LOSE);
+              this.endGame(msg) = true;
+              break;
+      
+            // If pathCharacter finds the hat then show _WIN
+            case this.field[this.positionY][this.positionX] === hat:
+              console.log(_WIN);
+              this.endGame(msg) = true;
+              break;
+          }
+          return status;
+        }
+
+    // 11. End the game with the message passed in
+    endGame(msg = "") {
+        // TODO: End the game with the message passed in
+        this.playGame = false;
+        console.log(msg);
+        //Use a process code to exit the game
+        process.exit();
+      }
 
     //1. Set the game width and height (Static Method)
     static gameDimensions(){
@@ -63,10 +203,17 @@ class Field{
                 field[y][x] = limit < ceiling ? fieldCharacter : hole;
             }  
         }
-
+        let hatY = Math.floor(Math.random() * height);
+        let hatX = Math.floor(Math.random() * width);
+        if (hatY === 0 && hatX === 0) {
+          hatX = 3;
+          hatY = 3;
+        }
+        field[hatY][hatX] = hat;
+    
         return field;
+      }
     }
-}
 
 // Clear the screen
 console.clear();
@@ -80,4 +227,6 @@ const gameDimensions = Field.gameDimensions();
 // Create a 2D-array of the games field using gameDimensions' width and height
 const createField = Field.createField(Number(gameDimensions.width), Number(gameDimensions.height));
 
-console.log(createField)
+// Instantiate gameField as the instance of Field class AND call startGame() method to begin the game
+const gameField = new Field(createField);
+gameField.startGame();
