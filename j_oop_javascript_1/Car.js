@@ -22,9 +22,15 @@ class Car {
 
 // b) Creating a new instance of Car
 let myCar = new Car("Toyota", "Raize", 2022);
+let myNextCar = new Car("Honda", "Vezel", 2015);
 
 // c) Call the method drive() to update the distance of the instance of Car by 100
 myCar.drive(100);
 
+myNextCar.drive(100);
+myNextCar.drive(100);
+
 // d) Call the method getTotalKilometersDriven to retrive the mileage of the instance of car
 myCar.getTotalKilometersDriven();
+myNextCar.getTotalKilometersDriven();
+

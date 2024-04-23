@@ -7,7 +7,7 @@ const arrCategories = new Array(
 console.log(arrCategories.length);
 console.log(arrCategories[0].name, arrCategories[0].description);
 
-arrCategories.push({name: "Cat E", description: "Open"});
+// arrCategories.push({name: "Cat E", description: "Open"});
 console.log(arrCategories);
 
 
