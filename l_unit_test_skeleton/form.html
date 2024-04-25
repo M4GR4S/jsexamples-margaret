@@ -104,6 +104,16 @@
     </script>
     <script>  
         // custom function (eventHandler) that reacts to onsubmit event within the form
+        function submitForm(){
+            event.preventDefault(); //this prevents the default event conducted by the browser
+            const firstName = document.getElementById("txtFirstName").value;
+            const lastName = document.getElementById("txtLastName").value;
+            const email = document.getElementById("txtEmail").value;
+
+            console.log("firstName: " + isEmpty(firstName));
+            console.log("lastName: " + isEmpty(lastName));
+            console.log(email)
+        }
     </script>
 
 </body>
